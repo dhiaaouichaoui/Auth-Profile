@@ -2,6 +2,7 @@ const  router = require('express').Router()
 const User=require('../models/user');
 const bcrypt =require('bcryptjs')
 const jwt = require('jsonwebtoken');
+const {requireLogin}= require('../middleware/auth')
 
 // USER REGISTER
 router.post('/register',async( req,res)=>{
@@ -43,6 +44,13 @@ router.post('/login',async (req,res)=>{
         return res.json({token})
     }catch(err){
         console.log(err)
+    }
+});
+router.get('/',requireLogin, async (req,res)=>{
+    try{
+        const user = User.findById()
+    }catch(err){
+        console.log(err);
     }
 })
 module.exports=router
